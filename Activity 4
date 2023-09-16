@@ -1,0 +1,40 @@
+import sqlite3
+conn = sqlite3.connect('record_keeper.db')
+cursor = conn.cursor()
+
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS expenses (
+        id INTEGER PRIMARY KEY,
+        description TEXT,
+        amount REAL,
+        date DATE
+    )
+''')
+conn.commit()
+def add_expense(description, amount, date):
+    cursor.execute('INSERT INTO expenses (description, amount, date) VALUES (?, ?, ?)', (description, amount, date))
+    conn.commit()
+    print("Expense added successfully!")
+def view_expenses():
+    cursor.execute('SELECT * FROM expenses')
+    expenses = cursor.fetchall()
+    for expense in expenses:
+        print(f"ID: {expense[0]}, Description: {expense[1]}, Amount: {expense[2]}, Date: {expense[3]}")
+while True:
+    print("\nRecord Keeping App Menu:")
+    print("1. Add Expense")
+    print("2. View Expenses")
+    print("3. Quit")
+    choice = input("Enter your choice: ")
+    if choice == '1':
+        description = input("Enter expense description: ")
+        amount = float(input("Enter expense amount: "))
+        date = input("Enter expense date (YYYY-MM-DD): ")
+        add_expense(description, amount, date)
+    elif choice == '2':
+        view_expenses()
+    elif choice == '3':
+        break
+    else:
+        print("Invalid choice. Please try again.")
+conn.close()
