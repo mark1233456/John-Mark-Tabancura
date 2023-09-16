@@ -1,0 +1,15 @@
++ year =int(input('Please Enter The Years: '))
++ office = input('Please Enter The Office Name: ')
++
++ print("\nSalary Based on Year/Experience:",end='')
++ if office.upper() == "IT" or office.lower() == "it":
++     if year >=10: print(1000)
++     else: print(5000)
++ elife office.lower() == "acct":
++      if year >=10: print(12000)
++      else: print(6000)
++ elife .lower() == "hr":
++      if year >=10: print(15000)
++      else: print(7500)
++ else:
++     print("WRONG!!")
